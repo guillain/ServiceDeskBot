@@ -1,7 +1,14 @@
 #!/bin/bash
+# @file To start nodejs program
+# @author guillain SANCHEZ <guillain@gmail.com>
+# @license LGPL-3.0
+# @settings:
+# @@ dev
+# @@ prod
+#
 
-APP='servicedeskbot.js'
-APP_DIR='/var/www/servicedeskbot'
+APP='index.js'
+APP_DIR='/var/www/ServiceDeskBot'
 LOG_DIR="${APP_DIR}/log"
 
 # For the manual mode and the tunneling
