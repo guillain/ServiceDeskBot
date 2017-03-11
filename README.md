@@ -1,8 +1,7 @@
 # ServiceDeskBot
 Cisco Spark Bot for ServiceDesk
 ## HowTo
-* clone localy:
-> git clone servicedeskbot
+* clone localy: ''' git clone servicedeskbot
 * install dependencies:
 > npm install
 * Create the log folder:
