@@ -8,28 +8,37 @@ It's based on [node-flint](https://github.com/flint-bot/flint)
 * clone localy: 
 
 > git clone servicedeskbot
+
 * install dependencies:
 
 > npm install
+
 * Create the log and the conf folders:
 
-mkdir log conf
+> mkdir log conf
+
 * Put your CSV file in the conf folder (key->txt structure)
 * Config your app:
 
-vi config.js
+> vi config.js
+
 * run the application, two configuration available:
+
 1. for the dev, node is used:
 
-./app manual
+> ./app manual
+
 2. for the prod, pm2 is used (install also this dependency):
 
-./app [start|stop|restart|show|staus|log]
+> ./app [start|stop|restart|show|staus|log]
+
 * Add the bot in 1:1 chat room
 * Load the csv file (from the room):
 
-loadcsv
+> loadcsv
+
 * Ask for...
+
 
 
 Have fun
