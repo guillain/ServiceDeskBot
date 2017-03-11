@@ -7,10 +7,10 @@ It's based on [node-flint](https://github.com/flint-bot/flint)
 ## HowTo
 * clone localy: 
 
-git clone servicedeskbot
+> git clone servicedeskbot
 * install dependencies:
 
-npm install
+> npm install
 * Create the log and the conf folders:
 
 mkdir log conf
