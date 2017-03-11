@@ -17,9 +17,9 @@ It's based on [node-flint](https://github.com/flint-bot/flint)
 
 > mkdir log conf
 
-* Put your CSV file (named km.scv) in the conf folder (key->txt structure)
+* Put your CSV file (named km.csv) in the conf folder (key->txt structure)
 
-> vi conf/km.csv
+> cp ~/data.csv conf/km.csv
 
 * Config your app:
 
