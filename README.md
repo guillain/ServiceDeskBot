@@ -19,7 +19,7 @@ It's based on [node-flint](https://github.com/flint-bot/flint)
 
 * Put your CSV file (named km.csv) in the conf folder (key->txt structure)
 
-> cp ~/data.csv conf/km.csv
+> cp <your CSV file> conf/km.csv
 
 * Config your app:
 
