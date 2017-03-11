@@ -21,7 +21,7 @@ Cisco Spark Bot for ServiceDesk
 
 > cp [your CSV file] conf/km.csv
 
-* Config your app:
+* Config your app with your [spark bot](https://developer.ciscospark.com/apps.html):
 
 > vi config.js
 
