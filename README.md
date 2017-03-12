@@ -1,9 +1,11 @@
 # ServiceDeskBot
 Cisco Spark Bot for ServiceDesk
+
 ## What is it?
 * Q&A bot integrated on redis db
 * DB can be loaded with csv file
 * Based on [node-flint](https://github.com/flint-bot/flint) (nodejs)
+
 ## HowTo
 * clone localy: 
 
@@ -40,7 +42,7 @@ Cisco Spark Bot for ServiceDesk
 
 > loadcsv
 
-* Ask for...
+* Ask the bot
 
 
 
