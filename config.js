@@ -13,13 +13,12 @@ config.email = 'guillain@gmail.com';
 config.debug = '1';
 
 // Flint
-//config.address = 'servicedeskbot.tontonserver.com';
-config.address = '0.0.0.0';
+config.address = 'servicedeskbot.tontonserver.com';
 config.port = '8083';
 
 // Spark
 config.sparkbot = 'ServiceDeskBot@sparkbot.io';
-config.webhookUrl = 'http://dev-collab.tontonserver.com:8083/flint';
+config.webhookUrl = 'http://'+config.address+':'+config.port+'/flint';
 config.token = 'NGMwZmYwYmMtMjQwMC00MmNiLWI0MGYtNDc5NmI2MGQyNTQxN2RiODk2MjYtNzIx';
 
 // Service desk
