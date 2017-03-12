@@ -4,6 +4,7 @@ Cisco Spark Bot for ServiceDesk
 ## What is it?
 * Q&A bot integrated on redis db
 * DB can be loaded with csv file
+* User can be put in a new room with ServiceDesk (keyword: servicedesk)
 * Based on [node-flint](https://github.com/flint-bot/flint) (nodejs)
 
 ## HowTo
@@ -36,7 +37,7 @@ Cisco Spark Bot for ServiceDesk
 * Add the bot in 1:1 chat room
 * Load the csv file (from the room):
 
-> loadcsv
+'''> loadcsv
 
 * Ask the bot
 
