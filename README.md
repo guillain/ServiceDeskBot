@@ -15,10 +15,6 @@ Cisco Spark Bot for ServiceDesk
 
 > npm install
 
-* Create the log and the conf folders:
-
-> mkdir log conf
-
 * Put your CSV file (named km.csv) in the conf folder (key->txt structure)
 
 > cp [your CSV file] conf/km.csv
