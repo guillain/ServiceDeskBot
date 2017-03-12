@@ -37,7 +37,7 @@ Cisco Spark Bot for ServiceDesk
 * Add the bot in 1:1 chat room
 * Load the csv file (from the room):
 
-'''> loadcsv
+> loadcsv
 
 * Ask the bot
 
