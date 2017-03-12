@@ -23,7 +23,7 @@ var config = require('./config');
 var flint = new Flint(config);
 
 // My additionnal features
-var myServiceDesk = require('./servicedesk.js');
+var myServiceDeskBot = require('./servicedeskbot.js');
 
 // Use redis storage
 flint.storageDriver(new RedisStore('redis://127.0.0.1')); // select driver
@@ -48,7 +48,7 @@ app.post('/flint', webhook(flint) );
 
 // Default: ServiceDesk module
 flint.hears(/.*/, function(bot, trigger) {
-  myServiceDesk.AI(bot, trigger);
+  myServiceDeskBot.AI(bot, trigger);
 });
 
 // Start expess server

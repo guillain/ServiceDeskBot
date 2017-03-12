@@ -9,11 +9,12 @@
 var config = {};
 
 config.name = 'ServiceDeskBot';
+config.email = 'guillain@gmail.com';
 config.debug = '1';
 
 // Flint
-config.address = 'servicedeskbot.tontonserver.com';
-//config.address = '0.0.0.0';
+//config.address = 'servicedeskbot.tontonserver.com';
+config.address = '0.0.0.0';
 config.port = '8083';
 
 // Spark
@@ -23,15 +24,19 @@ config.token = 'NGMwZmYwYmMtMjQwMC00MmNiLWI0MGYtNDc5NmI2MGQyNTQxN2RiODk2MjYtNzIx
 
 // Service desk
 config.SD = {};
+config.SD.email = 'servicedesk@tontonserver.com';
 config.SD.storage = 'KM';
 config.SD.csv = '/var/www/ServiceDeskBot/conf/km.csv';
 config.SD.searchlimit = '10';
-config.SD.msgintro = 'Welcome on the _ServiceDesk bot_ demo\n';
-config.SD.msgflash = '**Flash message** Demo version is ready!\n';
-config.SD.msgend = 'Thanks to have used the _ServiceDesk bot_\n';
-config.SD.msgnotfound = 'Sorry we have not found result. Thanks to \n* rephrase your demand \n* [open an incident](http://incident.com).\n';
-config.SD.msghelp = '**Help** [*|loadcsv|testcsv|help]\n';
-config.SD.msgtips = '_tips: Use the right keywords_\n';
+config.SD.msgintro = 'Welcome on the _ServiceDesk bot_ demo \n';
+config.SD.msgflash = '**Flash message** Demo version is ready! \n';
+config.SD.msgend = 'Thanks to have used the _ServiceDesk bot_ \n';
+config.SD.msgnotfound = 'Sorry we have not found result. Thanks to \n* rephrase your demand \n* [open an incident](http://incident.com) \n';
+config.SD.msghelp = '**Help** [*|loadcsv|testcsv|help] \n';
+config.SD.msgtips = '_tips: \n* Use the right keywords \n* Enter "servicedesk" to open a chat room with SD_ \n';
+config.SD.msgko = 'Thanks to write "servicedesk" to open a Space with the Service Desk team \n';
+config.SD.roomtitle = 'ServiceDesk Room \n';
+config.SD.roommsg = 'Space creation ongoing, name: '+config.SD.roomtitle+' \n';
 
 // export config
 module.exports = config;
