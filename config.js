@@ -12,7 +12,8 @@ config.name = 'ServiceDeskBot';
 config.debug = '1';
 
 // Flint
-config.address = '0.0.0.0';
+config.address = 'servicedeskbot.tontonserver.com';
+//config.address = '0.0.0.0';
 config.port = '8083';
 
 // Spark
@@ -30,6 +31,7 @@ config.SD.msgflash = '**Flash message** Demo version is ready!\n';
 config.SD.msgend = 'Thanks to have used the _ServiceDesk bot_\n';
 config.SD.msgnotfound = 'Sorry we have not found result. Thanks to \n* rephrase your demand \n* [open an incident](http://incident.com).\n';
 config.SD.msghelp = '**Help** [*|loadcsv|testcsv|help]\n';
+config.SD.msgtips = '_tips: Use the right keywords_\n';
 
 // export config
 module.exports = config;

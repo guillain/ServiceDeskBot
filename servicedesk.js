@@ -19,6 +19,7 @@ botsay = function (bot, message) {
   tosay  = config.SD.msgintro + '\n';
   tosay += config.SD.msgflash + '\n';
   tosay += message + '\n';
+  tosay += config.SD.msgtips + '\n';
   tosay += config.SD.msgend + '\n';
   bot.say(tosay);
 }
@@ -54,7 +55,7 @@ mysearch = function(bot, trigger) {
       tosay = config.SD.msgnotfound;
     }
     else if (j > config.SD.searchlimit) {
-      tosay += '\nOn '+j+' result found, limited to '+config.SD.searchlimit+' entry\n';
+      tosay += '\n'+j+' result found but '+config.SD.searchlimit+' displayed\n';
     }
     botsay(bot, tosay);
   });
