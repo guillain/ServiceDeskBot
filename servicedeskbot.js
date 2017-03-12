@@ -34,7 +34,7 @@ exports.AI = function (bot, trigger) {
 
 mysearch = function(bot, trigger) {
   var phrase = '';
-  var tosay = '**Search result** \n';
+  var tosay = '_Search result_ \n';
   for (i = 0; i < trigger.args.length; i++) {
     if(i == 0) { phrase  = trigger.args[i]; }
     else       { phrase += ' '+trigger.args[i]; }
