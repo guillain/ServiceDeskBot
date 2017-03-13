@@ -8,11 +8,15 @@ Cisco Spark Bot for ServiceDesk
 * Based on [node-flint](https://github.com/flint-bot/flint) (nodejs)
 
 ## HowTo
-* clone localy: 
+* Clone localy
 
 > git clone https://github.com/guillain/ServiceDeskBot.git
 
-* install dependencies:
+* Go into the folder
+
+> cd ServiceDeskBot
+
+* Install dependencies
 
 > npm install
 
@@ -20,22 +24,22 @@ Cisco Spark Bot for ServiceDesk
 
 > cp [your CSV file] conf/km.csv
 
-* Config your app with your [spark bot](https://developer.ciscospark.com/apps.html):
+* Config your app with your [spark bot](https://developer.ciscospark.com/apps.html)
 
 > vi config.js
 
-* run the application, two configuration available:
+* Run the application, two configuration availables
 
-1. for the dev, node is used:
+* 1/ For the dev, node is used
 
 > ./app manual
 
-2. for the prod, pm2 is used (install also this dependency):
+* 2/ For the prod, pm2 is used (install also this dependency)
 
 > ./app [start|stop|restart|show|staus|log]
 
 * Add the bot in 1:1 chat room
-* Load the csv file (from the room):
+* Load the csv file (from the room)
 
 > loadcsv
 
