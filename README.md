@@ -10,7 +10,7 @@ Cisco Spark Bot for ServiceDesk
 ## HowTo
 * clone localy: 
 
-> git clone servicedeskbot
+> git clone https://github.com/guillain/ServiceDeskBot.git
 
 * install dependencies:
 
