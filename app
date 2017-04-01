@@ -7,7 +7,7 @@
 # @@ prod
 #
 
-APP='index.js'
+APP='servicedeskbot.js'
 APP_DIR='/var/www/ServiceDeskBot'
 LOG_DIR="${APP_DIR}/log"
 
