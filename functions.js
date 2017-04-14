@@ -82,10 +82,10 @@ sdcontact = function(bot, trigger) {
 
   room = spark.roomAdd(config.SD.roomtitle)
     .then(function(room) {
-      memberroom = spark.membershipAdd(room.id, config.SD.email, '1')
+      memberroom = spark.membershipAdd(room.id, config.SD.email, '0')
         .then(function(room) { bot.say('* Membership added with '+config.SD.email); })
         .catch(function(err) { bot.say('* Error during membership'); console.log(err); });
-      memberroom = spark.membershipAdd(room.id, trigger.personEmail, '1')
+      memberroom = spark.membershipAdd(room.id, trigger.personEmail, '0')
         .then(function(room) { bot.say('* Membership addded with '+trigger.personEmail); })
         .catch(function(err) { bot.say('* Error during membership'); console.log(err); });
       bot.say('* Room "'+room.title+'" created');
