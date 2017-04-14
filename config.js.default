@@ -13,13 +13,13 @@ config.email = 'guillain@gmail.com';
 config.debug = '1';
 
 // Flint
-config.address = ''
+config.address = '';
 config.port = '8083';
 
 // Spark
 config.sparkbot = 'ServiceDeskBot@sparkbot.io';
 config.webhookUrl = 'http://'+config.address+':'+config.port+'/flint';
-config.token = ''
+config.token = '';
 
 // Service desk
 config.SD = {};

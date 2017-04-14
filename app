@@ -1,6 +1,6 @@
 #!/bin/bash
 # @file To start nodejs program
-# @author guillain SANCHEZ <guillain@gmail.com>
+# @author guillain (guillain@gmail.com)
 # @license LGPL-3.0
 # @settings:
 # @@ dev
