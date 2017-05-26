@@ -21,6 +21,14 @@ config.sparkbot = 'ServiceDeskBot@sparkbot.io';
 config.webhookUrl = 'http://'+config.address+':'+config.port+'/flint';
 config.token = '';
 
+// BigData connector
+config.bigdata = {};
+config.bigdata.enable = false;
+config.bigdata.type = 'tcp';
+config.bigdata.host = '';
+config.bigdata.port = '';
+config.bigdata.auth = '';
+
 // Service desk
 config.SD = {};
 config.SD.email = ''

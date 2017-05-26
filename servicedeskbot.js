@@ -11,6 +11,7 @@ var Flint = require('node-flint');
 var webhook = require('node-flint/webhook');
 var RedisStore = require('node-flint/storage/redis'); // load driver
 var express = require('express');
+var Logstash = require('logstash-client');
 var bodyParser = require('body-parser');
 var _ = require('lodash');
 var app = express();
@@ -39,8 +40,27 @@ flint.on('initialized', function() {
   flint.debug('initialized %s rooms', flint.bots.length);
 });
 
+// BigData & debug
 flint.on('message', function(bot, trigger, id) {
-  //flint.debug('"%s":"%s":"%s"', trigger.roomTitle,trigger.personEmail,trigger.text);
+  flint.debug('"%s":"%s":"%s"', trigger.roomTitle,trigger.personEmail,trigger.text);
+
+  // If BigData feature activated
+  if (config.bigdata.enable == true) {
+    var message = {
+      'timestamp': new Date(),
+      'message': trigger.text,
+      'from': trigger.personEmail,
+      'spaceid': trigger.roomId,
+      'spacename': trigger.roomTitle,
+      'level': 'info',
+      'type': 'bot'
+    };
+
+    var logstash = new Logstash({type:config.bigdata.type,host: config.bigdata.host, port: config.bigdata.port});
+    logstash.send(message);
+    flint.debug('Logstash recording should be ok');
+  }
+
 });
 
 // Define express path for incoming webhooks
