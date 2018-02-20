@@ -14,22 +14,15 @@ var search = Search.createSearch(config.SD.storage);
 
 var fs = require('fs');
 
-
-botsay = function (bot, message) {
-  tosay  = config.SD.msgintro + '\n';
-  tosay += config.SD.msgflash + '\n';
-  tosay += message + '\n';
-  tosay += config.SD.msgtips + '\n';
-  tosay += config.SD.msgend + '\n';
-  bot.say(tosay);
-}
-
 exports.AI = function (bot, trigger) {
-  if      (/help/i.test(trigger.args['0']))      { bot.say(config.SD.msghelp); }
-  else if (/^loadcsv$/i.test(trigger.args['0'])) { loadcsv(bot, trigger); }
-  else if (/^testcsv$/i.test(trigger.args['0'])) { testcsv(bot, trigger); }
-  else if (/^servicedesk$/i.test(trigger.args['0'])) { sdcontact(bot, trigger); }
-  else {                                          mysearch(bot, trigger); }
+  var arg = trigger.args['0'];
+  if (/ServiceDeskBot/i.test(arg)){  arg = trigger.args['1']; }
+
+  if      (/help/i.test(arg))          { bot.say(config.SD.msghelp); }
+  else if (/^loadcsv$/i.test(arg))     { loadcsv(bot, trigger); }
+  else if (/^testcsv$/i.test(arg))     { testcsv(bot, trigger); }
+  else if (/^servicedesk$/i.test(arg)) { sdcontact(bot, trigger); }
+  else                                 { mysearch(bot, trigger); }
 };
 
 mysearch = function(bot, trigger) {
@@ -58,7 +51,12 @@ mysearch = function(bot, trigger) {
     else if (j > config.SD.searchlimit) {
       tosay += '\n'+j+' result found but '+config.SD.searchlimit+' displayed\n';
     }
-    botsay(bot, tosay);
+
+    say  = config.SD.msgintro + '\n';
+    say += config.SD.msgflash + '\n';
+    say += tosay + '\n';
+    say += config.SD.msgtips + '\n';
+    bot.say(say);
   });
   /*
   search.query(phrase, function(err, ids){
@@ -76,7 +74,11 @@ mysearch = function(bot, trigger) {
 
 sdcontact = function(bot, trigger) {
   // Open a Spark room with SD team
-  var tosay = '';
+  var tosay  = config.SD.msgintrogrp + '\n';
+  tosay += config.SD.msgflash + '\n';
+  tosay += config.SD.msgtips + '\n';
+  tosay += config.SD.msgtodo + '\n';
+
   var Spark = require('node-sparky');
   var spark = new Spark({ token: config.token  });
 
@@ -88,6 +90,9 @@ sdcontact = function(bot, trigger) {
       memberroom = spark.membershipAdd(room.id, trigger.personEmail, '0')
         .then(function(room) { bot.say('* Membership addded with '+trigger.personEmail); })
         .catch(function(err) { bot.say('* Error during membership'); console.log(err); });
+      msgsend = spark.messageSendRoom(room.id, {text: tosay, markdown: tosay})
+        .then(function(room) { bot.say('* Message sent '); })
+        .catch(function(err) { bot.say('* Error to send message'); console.log(err); });
       bot.say('* Room "'+room.title+'" created');
     })
     .catch(function(err) { bot.say('* Error during room creation'); console.log(err); });
@@ -122,4 +127,5 @@ testcsv = function(bot, trigger) {
     else { bot.say('* km '+config.SD.storage+' not found'); }
   });
 }
+
 

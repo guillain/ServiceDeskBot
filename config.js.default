@@ -35,15 +35,28 @@ config.SD.email = ''
 config.SD.storage = 'KM';
 config.SD.csv = '/var/www/ServiceDeskBot/conf/km.csv';
 config.SD.searchlimit = '10';
-config.SD.msgintro = 'Welcome on the _ServiceDesk bot_ demo \n';
+
+config.SD.msgintro = 'Welcome on the _ServiceDesk bot_ demo - direct chat\n';
+config.SD.msgintrogrp = 'Welcome on the _ServiceDesk bot_ demo - group chat\n';
 config.SD.msgflash = '**Flash message** Demo version is ready! \n';
 config.SD.msgend = 'Thanks to have used the _ServiceDesk bot_ \n';
 config.SD.msgnotfound = 'Sorry we have not found result. Thanks to \n* rephrase your demand \n* [open an incident](http://incident.com) \n';
-config.SD.msghelp = '**Help** [*|loadcsv|testcsv|help] \n';
-config.SD.msgtips = '_Tips_ \n* Use the right keywords \n* Enter "servicedesk" to open a chat room with SD \n';
+config.SD.msgtips = '_Tips_ \n* Use the right keywords \n* Enter `servicedesk` to open a new chat room with SD \n';
+config.SD.msgtodo = '_Todo_ \n* Ticket creation - ITSM connector \n* Ticket info (creation and update time, desription, update and comments) \n';
 config.SD.msgko = 'Thanks to write "servicedesk" to open a Space with the Service Desk team \n';
+
 config.SD.roomtitle = 'ServiceDesk Room \n';
 config.SD.roommsg = 'Space creation ongoing, name: '+config.SD.roomtitle+' \n';
+config.SD.roommsgintro = 'You\'re in group space with bot and human assistance \n';
+
+config.SD.msghelp  = '**Help**\n\n';
+config.SD.msghelp += '  ServiceDesk bot is a tool to provide support with the help of KM, DB...\n\n';
+config.SD.msghelp += '  Commands: `[ * | servicedesk | loadcsv | testcsv | help ]`\n\n';
+config.SD.msghelp += '  - `servicedesk`: to open a chat group space with the SD\n\n';
+config.SD.msghelp += '  - `loadcsv`: load current CSV file as source of data\n\n';
+config.SD.msghelp += '  - `testcsv`: test current CSV file vs local DB\n\n';
+config.SD.msghelp += '  - `help`: this chat\n\n';
+config.SD.msghelp += '  - `*`: any words, you can search in the source directly with the name and/or description of what you search\n\n';
 
 // export config
 module.exports = config;
