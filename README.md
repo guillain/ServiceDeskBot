@@ -6,6 +6,8 @@ Cisco Spark Bot for ServiceDesk
 * DB can be loaded with csv file
 * User can be put in a new room with ServiceDesk (keyword: servicedesk)
 * Based on [node-flint](https://github.com/flint-bot/flint) (nodejs)
+* Logstash cnnector to send all messages
+* ITSM (servicenow) integration to create and update ticket
 * <img src="doc/chatbot.png" height="300px">
 
 ## Scenario
@@ -38,11 +40,11 @@ vi config.js
 * Run the application, two configuration availables
 * 1/ For the dev, node is used
 ```bash
-./app manual
+./run manual
 ```
 * 2/ For the prod, pm2 is used (install also this dependency)
 ```
-./app [start|stop|restart|show|staus|log]
+./run [start|stop|restart|show|status|log]
 ```
 * Add the bot in 1:1 chat room
 * Load the csv file (from the room)
@@ -51,6 +53,8 @@ loadcsv
 ```
 * Ask the bot
 
+## Done
+[done.md](doc/done.md)
 
 ## ToDo
 [todo.md](doc/todo.md)

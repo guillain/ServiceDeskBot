@@ -1,0 +1,57 @@
+/**
+ * @file Defines ServiceDesk functions for Spark
+ * @author guillain <guillain@gmail.com>
+ * @license LGPL-3.0
+ */
+// Load config
+var config = require('../config');
+
+var Flint = require('node-flint');
+var flint = new Flint({ token: config.token  });
+
+var redis = require("redis");
+var client = redis.createClient({detect_buffers: true});
+
+var Search = require('redis-search');
+var search = Search.createSearch(config.SD.storage);
+
+var fs = require('fs');
+
+// Manage the order to chat with the ServiceDesk people
+exports.servicedesk = function(bot, trigger) {
+  // Create new room and add SD contact into
+  sd = sdcontact(bot, trigger)
+    //.then(function(sd) {
+      // Create ITSM ticket to log current request
+      //itsm = createitsm(bot, trigger, 'todo: creation', 'todo: creation comment');
+    //})
+    //.catch(function(err) {
+      // Create ITSM ticket to log current room creation issue
+      //itsm = createitsm(bot, trigger, config.msg.roomcreationissue, config.msg.roomcreationissuecomment);
+    //});
+};
+
+// Open a Spark room with SD team
+exports.join = function(bot, trigger) {
+  var newtosay  = config.msg.roomcreationintro + '\n\n';
+  newtosay     += config.msg.flash + '\n\n';
+  newtosay     += config.msg.tips + '\n\n';
+  newtosay     += config.msg.todo + '\n\n';
+
+  var tosay  = config.msg.roomcreationok + ' - ' + config.SD.roomtitle + '\n\n';
+  tosay += config.msg.memberadded + ' - ' + config.SD.email + '\n\n';
+  tosay += config.msg.memberadded + ' - ' + trigger.personEmail + '\n\n';
+
+  newbot = new Bot(flint);
+  newbot.newRoom(config.SD.roomtitle, [config.SD.email, trigger.personEmail]);
+  /*
+  room = bot.newRoom(config.SD.roomtitle, [config.SD.email, trigger.personEmail])
+    .then(function(room) {
+      msgsend = bot.say(room.id, {text: tosay, markdown: tosay})
+        .then(function(room) { bot.say(tosay); })
+        .catch(function(err) { bot.say(config.msg.senterr); console.log(err); });
+    })
+    .catch(function(err) { bot.say(config.msg.roomcreationerr); console.log(err); });
+  */
+};
+

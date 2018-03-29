@@ -14,49 +14,80 @@ config.debug = '1';
 
 // Flint
 config.address = '';
-config.port = '8083';
-
-// Spark
+config.port = '8080';
 config.sparkbot = 'ServiceDeskBot@sparkbot.io';
 config.webhookUrl = 'http://'+config.address+':'+config.port+'/flint';
 config.token = '';
+config.maxConcurrent = '32'; //3
+config.messageFormat = 'markdown'; //text
+config.minTime = '10'; //600
+config.requeueMinTime = '5'; //(minTime*)10
 
 // BigData connector
 config.bigdata = {};
-config.bigdata.enable = false;
+config.bigdata.enable = true;
 config.bigdata.type = 'tcp';
-config.bigdata.host = '';
 config.bigdata.port = '';
 config.bigdata.auth = '';
+config.bigdata.host = '';
 
 // Service desk
 config.SD = {};
-config.SD.email = ''
+config.SD.email = '';
 config.SD.storage = 'KM';
 config.SD.csv = '/var/www/ServiceDeskBot/conf/km.csv';
 config.SD.searchlimit = '10';
-
-config.SD.msgintro = 'Welcome on the _ServiceDesk bot_ demo - direct chat\n';
-config.SD.msgintrogrp = 'Welcome on the _ServiceDesk bot_ demo - group chat\n';
-config.SD.msgflash = '**Flash message** Demo version is ready! \n';
-config.SD.msgend = 'Thanks to have used the _ServiceDesk bot_ \n';
-config.SD.msgnotfound = 'Sorry we have not found result. Thanks to \n* rephrase your demand \n* [open an incident](http://incident.com) \n';
-config.SD.msgtips = '_Tips_ \n* Use the right keywords \n* Enter `servicedesk` to open a new chat room with SD \n';
-config.SD.msgtodo = '_Todo_ \n* Ticket creation - ITSM connector \n* Ticket info (creation and update time, desription, update and comments) \n';
-config.SD.msgko = 'Thanks to write "servicedesk" to open a Space with the Service Desk team \n';
-
 config.SD.roomtitle = 'ServiceDesk Room \n';
-config.SD.roommsg = 'Space creation ongoing, name: '+config.SD.roomtitle+' \n';
-config.SD.roommsgintro = 'You\'re in group space with bot and human assistance \n';
 
-config.SD.msghelp  = '**Help**\n\n';
-config.SD.msghelp += '  ServiceDesk bot is a tool to provide support with the help of KM, DB...\n\n';
-config.SD.msghelp += '  Commands: `[ * | servicedesk | loadcsv | testcsv | help ]`\n\n';
-config.SD.msghelp += '  - `servicedesk`: to open a chat group space with the SD\n\n';
-config.SD.msghelp += '  - `loadcsv`: load current CSV file as source of data\n\n';
-config.SD.msghelp += '  - `testcsv`: test current CSV file vs local DB\n\n';
-config.SD.msghelp += '  - `help`: this chat\n\n';
-config.SD.msghelp += '  - `*`: any words, you can search in the source directly with the name and/or description of what you search\n\n';
+// ITSM
+config.ITSM = {};
+config.ITSM.url = '';
+config.ITSM.auth = '';
+config.ITSM.nbroldmsg = '5';
+
+// Bot message
+config.msg = {};
+config.msg.help  = '**Help**\n\n';
+config.msg.help += '  ServiceDesk bot is a tool to provide support with the help of KM, DB...\n\n';
+config.msg.help += '  Commands \n\n'; //`[ * | joinsd | createticket | loadcsv | testcsv | help ]`\n\n';
+config.msg.help += '  - `joinsd`: to open a chat group space with the Service Desk\n\n';
+config.msg.help += '  - `loadcsv`: load current CSV file as source of data\n\n';
+config.msg.help += '  - `testcsv`: test current CSV file vs local DB\n\n';
+config.msg.help += '  - `createticket`: create ITSM ticket\n\n';
+config.msg.help += '  - `updateticket`: update ITSM ticket\n\n';
+config.msg.help += '  - `help`: this chat\n\n';
+config.msg.help += '  - `*`: any words, you can search in the source directly with the name and/or description';
+
+config.msg.intro = 'Welcome on the _ServiceDesk_ bot space';
+config.msg.introgrp = 'Welcome on the _ServiceDesk_ group space';
+config.msg.flash = '**Flash message** Demo version is ready!';
+config.msg.end = 'Thanks to have used the _ServiceDesk bot_';
+config.msg.notfound = 'Sorry we have not found result. Thanks to\n  * rephrase your demand\n  * `createticket` command to create a new ticket';
+config.msg.tips = '_Tips_\n  * Use the right keywords\n  * Enter `joinsd` to open a new chat room with Service Desk';
+config.msg.todo = '_Todo_\n  * ITSM ticket (update and comments)';
+config.msg.ko = 'Thanks to write `joinsd` to open a Space with the Service Desk team';
+
+config.msg.roomcreationerr = '* Error during room creation';
+config.msg.roomcreationok = '* Room created';
+config.msg.roomcreationongoing = 'Space creation ongoing';
+config.msg.roomcreationintro = 'You\'re in group space with bot and human assistance';
+config.msg.roomcreationissue = 'Cisco Spark room creation issue';
+config.msg.roomcreationissuecomment = 'ServiceDesk bot has an issue to create the Cisco Spark group space';
+
+config.msg.memberadded = '* Member added';
+config.msg.membererr = '* Error during membership'
+
+config.msg.sent = '* Message sent';
+config.msg.senterr = '* Error to send message';
+
+config.msg.itsmcreationerr = '* ITSM ticket creation issue';
+config.msg.itsmcreationok = '* ITSM ticket created';
+config.msg.itsmupdateok = '* ITSM ticket updated';
+config.msg.istmcontent = 'SD-bot';
+config.msg.istmdescription = 'ServiceDesk Automation';
+config.msg.itsmcreatehelp = 'Syntaxe: `createticket title comments`';
+config.msg.itsmupdatehelp = 'Syntaxe: `updateticket ticket_id comments`';
 
 // export config
 module.exports = config;
+
