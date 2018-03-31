@@ -16,59 +16,49 @@ Cisco Spark Bot for ServiceDesk
 ## Advanced Scenario
 ![](doc/workflow_adv.png)
 
-## HowTo
+# HowTo
+
+## Installation
 * Clone localy
-```bash
-git clone https://github.com/guillain/ServiceDeskBot.git
-```
+`git clone https://github.com/guillain/ServiceDeskBot.git`
 * Go into the folder
-```bash
-cd ServiceDeskBot
-```
+`cd ServiceDeskBot`
+
+## Configuration
+* Put your CSV file (named km.csv) in the conf folder (key->txt structure)
+`cp [your CSV file] app/conf/km.csv`
+* Config your app with your [spark bot](https://developer.ciscospark.com/apps.html)
+`vi app/config.js`
+
+## Running
 
 ### PM2 environment
 
 * Install dependencies
-```bash
-npm install
-```
-* Put your CSV file (named km.csv) in the conf folder (key->txt structure)
-```
-cp [your CSV file] conf/km.csv
-```
-* Config your app with your [spark bot](https://developer.ciscospark.com/apps.html)
-```
-vi config.js
-```
+`npm install`
 * Run the application, two configuration availables
 * 1/ For the dev, node is used
-```bash
-./run manual
-```
+`./run manual`
 * 2/ For the prod, pm2 is used (install also this dependency)
-```
-./run [start|stop|restart|show|status|log]
-```
-* Add the bot in 1:1 chat room
-* Load the csv file (from the room)
-```bash
-loadcsv
-```
-* Ask the bot
+`./run [start|stop|restart|show|status|log]`
+* Add the bot in 1:1 or in chat group room
 
-### Docker environment
+### Docker
 Provided also for Docker env. with the Dockerfile for the standalone builder
 
 To build the image:
 `docker build -t bot/servicedesk .`
 
 To run the image:
-`docker run -d -p 8080:8080 bot/servicedesk`
+`docker run -d -p 8083:3333 bot/servicedesk`
 
 To go in the container:
-`docker exec -it bot/servcedesk /bin/bash`
+`docker exec -it bot/servicedesk /bin/bash`
 
-## BigData with Logstash connector embeded
+To check the logs
+`docker logs bot/servicedesk --details -f`
+
+# BigData with Logstash connector embeded
 Settings is done to send all chat messages formatted properly to a log stash system.
 
 Thanks to active it in the configuration file
