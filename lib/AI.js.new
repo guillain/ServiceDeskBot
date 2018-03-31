@@ -26,19 +26,34 @@ exports.search = function(bot, trigger) {
   }
 
   client.hgetall(config.SD.storage, function(err,kms){
-    j = 0;
     if (err) throw err;
-    for (var i in kms) { 
-      var re =  new RegExp('\\b'+ phrase + '\\b','i');
-      if(re.exec(kms[i])) { 
-        if (j < config.SD.searchlimit) { tosay += '- '+kms[i]+'\n'; }
-        j++;
+    cpt = [][];
+
+    // Keyword evalution
+    for (var i = 0; i < trigger.args.length; i++) {
+      word = trigger.args[i];
+      if(word.length > 3) {
+        cpt[word]['id'] = 0;
+        for (var j in kms) { 
+          var re =  new RegExp('\\b'+ word + '\\b','j');
+          if(re.exec(kms[j])) { 
+            cpt[word]['id']++; 
+            cpt[word][j] = kms[j];
+          }
+        }
       }
     }
-    if (j == 0) {
+
+    // Check cpt result
+    if (cpt.length == 0) {
       tosay = config.msg.notfound;
     }
-    else if (j > config.SD.searchlimit) {
+    else (
+      for (var i = 1; i < cpt.length; i++){
+        if (cpt[i]['id'] > cpt[i-1]['id']) {
+          cpt[i]['maxref'] = i;
+        }
+      cpt.length > config.SD.searchlimit) {
       tosay += '\n'+j+' result found but '+config.SD.searchlimit+' displayed\n';
     }
 
@@ -48,17 +63,4 @@ exports.search = function(bot, trigger) {
     say += config.msg.tips + '\n\n';
     bot.say(say);
   });
-  /*
-  search.query(phrase, function(err, ids){
-    if (err) throw err;
-    console.log('Search results for "%s":', phrase);
-    console.log(ids);
-    if (ids.length != 0) {
-      tosay = 'Found \n';
-      for(var i in ids) { tosay += '- '+ids[i]+'\n'; }
-      bot.say(tosay);
-    } else { bot.say(config.msg.notfound); }
-  });
-  */
-};
-
+}

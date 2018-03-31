@@ -29,8 +29,10 @@ exports.search = function(bot, trigger) {
     j = 0;
     if (err) throw err;
     for (var i in kms) { 
+      //console.log('>>> i:'+i+', kms[i]:'+kms[i]);
       var re =  new RegExp('\\b'+ phrase + '\\b','i');
       if(re.exec(kms[i])) { 
+        //console.log('Found :'+kms[i]);
         if (j < config.SD.searchlimit) { tosay += '- '+kms[i]+'\n'; }
         j++;
       }
@@ -62,3 +64,19 @@ exports.search = function(bot, trigger) {
   */
 };
 
+search_pattern = function(pattern){
+
+  client.hgetall(config.SD.storage, function(err,kms){
+    j = 0;
+    if (err) throw err;
+
+    // KM source
+    for (var i in kms) {
+      //console.log('>>> i:'+i+', kms[i]:'+kms[i]);
+      var re =  new RegExp('\\b'+ pattern + '\\b','i');
+      if(re.exec(kms[i])) {
+        j++;
+      }
+    }
+  });
+}

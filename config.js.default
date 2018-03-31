@@ -83,8 +83,8 @@ config.msg.senterr = '* Error to send message';
 config.msg.itsmcreationerr = '* ITSM ticket creation issue';
 config.msg.itsmcreationok = '* ITSM ticket created';
 config.msg.itsmupdateok = '* ITSM ticket updated';
-config.msg.istmcontent = 'SD-bot';
-config.msg.istmdescription = 'ServiceDesk Automation';
+config.msg.itsmtitle = 'SD-bot';
+config.msg.itsmdescription = 'ServiceDesk Automation';
 config.msg.itsmcreatehelp = 'Syntaxe: `createticket title comments`';
 config.msg.itsmupdatehelp = 'Syntaxe: `updateticket ticket_id comments`';
 

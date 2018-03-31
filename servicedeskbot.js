@@ -53,6 +53,7 @@ flint.hears(/.*/, function(bot, trigger, id) {
   if      (/^help$/i.test(arg))          { bot.say(config.msg.help); }
   else if (/^loadcsv$/i.test(arg))       { CSV.load(bot, trigger); }
   else if (/^testcsv$/i.test(arg))       { CSV.test(bot, trigger); }
+  else if (/^listticket$/i.test(arg))    { ITSM.list(bot, trigger); }
   else if (/^createticket/i.test(arg))   { ITSM.create(bot, trigger, trigger.args['1'], trigger.args); }
   else if (/^updateticket/i.test(arg))   { ITSM.update(bot, trigger, id, trigger.args); }
   else if (/^joinsd$/i.test(arg))        { SD.join(bot, trigger, id); }
