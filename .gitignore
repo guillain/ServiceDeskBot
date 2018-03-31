@@ -4,7 +4,6 @@ config.js
 km.csv
 
 # Logs
-log
 logs
 *.log
 npm-debug.log*
