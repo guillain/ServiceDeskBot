@@ -18,33 +18,81 @@ Cisco Spark Bot for ServiceDesk
 
 # Commands
 ## joinsd
+* `joinsd`
 To open a chat group space with the Service Desk
 Because we can't let the enduser without door
-Create automatically an ITSM ticket and the content is provided in the both chat space (1:1 and group).
+Create automatically an ITSM incident with the content coming from local chat
+New group chat space is create and one ServiceDesk guy is involved to help the end user
 
-## loadcsv
+* `joinsd help`
+The SD's help page
+
+## CSV
+Manage CSV file as source of KM
+
+* `csv load`
 Load current CSV file as source of data
 Useful to update quickly the KB source
 
-## testcsv
+* `csv test`
 Test current CSV file vs local DB
 Run the production safly!
 
-## listticket
+* `csv help`
+The CSV's help page
+
+## Incident
+Manage the ITSM incident
+
+* `incident list`
 List ITSM tickets
 To follow the last event, update...
 
-## createticket
+* `incident list create [title] [comments]`
 Create your ticket by chat
-`createticket [title] [comments]`
 
-## updateticket
+`updateticket [id] [comments]`
 Update the ticket
-`updateticket [id] [comments]
+
+* `incident help`
+The Incident's help page
+
+## Translate
+
+* `translate state`
+Display the current state of the auto translation
+
+* `translate on`
+Activate the auto translation
+
+* `translate off`
+Deactivate the auto translation
+
+* `translate config`
+Display the current config
+
+* `translate config [lang in] [lang out]`
+Change the current config
+The config is also updated when the user perform an manual translation
+
+* `translate help`
+The Translate's help page
+
+## Flash
+Display and update the flash message
+
+* `flash`
+Display the flash messasge
+
+* `flash update [\/*phrase}`
+Update the flash message
+
+* `flash help`
+The Flash's help page
 
 ## help
-Display the helpful messsage
-
+Display the global helpful messsage
+* `help`
 
 *All other words are used to be searched in the KB source(s)*
 *: any words, you can search in the source directly with the name and/or description

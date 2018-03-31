@@ -8,7 +8,7 @@ var config = require('../config');
 var request = require("request");
 
 // Help fct
-exports.help = function(bot, trigger) {
+exports.help = function() {
   var help  = '## ITSM Incident - SeviceNow \n\n';
   help += 'Incident management by chat bot for ServiceNow as ITSM product\n\n';
   help += '### Command available\n\n';
@@ -16,7 +16,7 @@ exports.help = function(bot, trigger) {
   help += '* `incident create [title] [comments]`: create new incident\n\n';
   help += '* `incident update [id] [comments]`: update an incident\n\n';
   help += '* `incident help`: this page\n\n;'
-  bot.say(help);
+  return help;
 }
 
 // Internal segmentation of the request
@@ -24,7 +24,7 @@ exports.switcher = function(bot, trigger, id) {
   if      (/^list$/i.test(trigger.args['1']))    { module.exports.list(bot, trigger); }
   else if (/^update$/i.test(trigger.args['1']))  { module.exports.update(bot, trigger, id, trigger.args); }
   else if (/^create$/i.test(trigger.args['1']))  { module.exports.create(bot, trigger, trigger.args['2'], trigger.args, callback()); }  
-  else                                           { module.exports.help(bot, trigger); }
+  else                                           { bot.say(module.exports.help()); }
 }
 
 // Generic function to prepare and return the options to request to ITSM
@@ -75,7 +75,7 @@ exports.list = function(bot, trigger) {
     if (error) throw new Error(error);
     else {
       var jres = to_json(response);
-      if ((jres.body.result) && (jres.body.result.length == 0)) { bot.say(config.msg.incident.notfound); }
+      if ((jres.body.result) && (jres.body.result.length == 0)) { bot.say(config.incident.msg.notfound); }
       else {
         for (var i = 0; i < jres.body.result.length; i++) {
           bot.say(get_incident_summary(jres.body.result[i]));
@@ -87,9 +87,9 @@ exports.list = function(bot, trigger) {
 
 // Create ITSM incident
 exports.create = function(bot, trigger, title, comments, callback) {
-  if ((title == '') || (comments == '')) { module.exports.help(); }
+  if ((title == '') || (comments == '')) { bot.say(help()); }
   else {
-    description  = config.msg.incident.description;
+    description  = config.incident.msg.description;
     description += '\n  * Enduser: ' + trigger.personEmail;
     description += '\n  * SD: ' + config.SD.email;
     description += '\n  * Bot: ' + config.sparkbot;
@@ -100,7 +100,7 @@ exports.create = function(bot, trigger, title, comments, callback) {
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
       var jres = to_json(response);
-      var tosay  = config.msg.incident.creationok;
+      var tosay  = config.incident.msg.creationok;
       tosay += '\n  * Incident number: ' + jres.body.result.number;
       tosay += '\n  * ID: ' + jres.body.result.sys_id;
       tosay += '\n  * Description: ' + description;
@@ -112,14 +112,14 @@ exports.create = function(bot, trigger, title, comments, callback) {
 
 // Update ITSM incident
 exports.update = function(bot, trigger, id, message) {
-  if ((id == '') || (message == '')) { module.exports.help(); }
+  if ((id == '') || (message == '')) { bot.say(help()); }
   else {
     options = configure('PUT', '/api/now/table/incident/' + id, {comments: message}); 
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
     });
 
-    bot.say(config.msg.incident.updateok);
+    bot.say(config.incident.msg.updateok);
   }
 };
 

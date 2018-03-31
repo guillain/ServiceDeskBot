@@ -12,16 +12,18 @@ var redis = require("redis");
 var client = redis.createClient({detect_buffers: true});
 
 var Search = require('redis-search');
-var search = Search.createSearch(config.SD.storage);
+var search = Search.createSearch(config.db.km);
 
 var fs = require('fs');
 
-exports.help = function(bot, trigger) {
+// Help fct
+exports.help = function() {
   var help  = '## AI \n\n';
   help += 'Search engine based on NoSQL and BigData database\n\n';
-  bot.say(help);
+  return help;
 }
 
+// Search master fct
 exports.search = function(bot, trigger) {
   var tosay = '_Search result_ \n';
 
@@ -31,7 +33,7 @@ exports.search = function(bot, trigger) {
     else       { phrase += ' '+trigger.args[i]; }
   }
 
-  client.hgetall(config.SD.storage, function(err,kms){
+  client.hgetall(config.db.km, function(err,kms){
     j = 0;
     if (err) throw err;
     for (var i in kms) { 

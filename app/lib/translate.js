@@ -9,7 +9,7 @@ var config = require('../config');
 var translate = require('node-google-translate-skidz');
 
 // Help fct
-exports.help = function(bot, trigger) {
+exports.help = function() {
   var help  = '## Translate \n\n';
   help += 'Text translation online via chat bot \n\n';
   help += '### How to use the translation \n\n';
@@ -35,22 +35,23 @@ exports.help = function(bot, trigger) {
   help += '* zh-CN - Chinese (Simplified) \n\n';
   help += '* zh-TW - Chinese (Traditional) \n\n';
   help += 'Full list: https://cloud.google.com/translate/docs/languages\n\n';
-  bot.say(help);
+  return help;
 };
 
 // Main
 exports.switcher = function(bot, trigger, id) {
   // Get back data from local database
-  var data = bot.recall(config.userDB);
+  var data = bot.recall(config.translate.db);
   //console.log(JSON.stringify(data, null, 4));
-  if(!data)          { data = bot.store(config.userDB, {}); }
+  if(!data)          { data = bot.store(config.translate.db, {}); }
   if(!data.state)    { data.state = false; }
   if(!data.langin)   { data.langin = 'fr'; }
   if(!data.langout)  { data.langout = 'en'; }
 
   // Internal segmentation of the request
-  if      (/^on$/i.test(trigger.args['1']))      { data.state = true; bot.say('Auto translation **ON**'); }
-  else if (/^off$/i.test(trigger.args['1']))     { data.state = false; bot.say('Auto translation **OFF**'); }
+  if      (/^help$/i.test(trigger.args['1']))    { bot.say(module.exports.help()); }
+  else if (/^on$/i.test(trigger.args['1']))      { data.state = true; bot.say(config.translate.msg.on); }
+  else if (/^off$/i.test(trigger.args['1']))     { data.state = false; bot.say(config.translate.msg.off); }
   else if (/^state$/i.test(trigger.args['1']))   { bot.say('State: ' + data.state); }
   else if (/^config$/i.test(trigger.args['1']))  { 
     if      (trigger.args.length == 2)             { bot.say('Configuration\n* In: ' + data.langin + '\n* Out: ' + data.langout); }
@@ -58,7 +59,7 @@ exports.switcher = function(bot, trigger, id) {
       // todo: check if 1 & 2 exist and in the dict
       data.langin = trigger.args['2'];
       data.langout = trigger.args['3'];
-      bot.say('Configuration saved _(' + data.langin + ',' + data.langout + ')_');
+      bot.say(config.translate.msg.confok+' _(' + data.langin + ',' + data.langout + ')_');
     }
   }
   else {
@@ -70,7 +71,7 @@ exports.switcher = function(bot, trigger, id) {
         data.langout = trigger.args['2'];
         trigger.args.splice(0,3);
       }
-      else { module.exports.help(bot, trigger); return; }
+      else { bot.say(module.exports.help()); return; }
     }
     console.log('>>> IN >>> lang: '+data.langin+', phrase: '+ trigger.args.join(' '));
     translate({

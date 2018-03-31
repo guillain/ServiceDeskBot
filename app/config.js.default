@@ -66,12 +66,12 @@ config.msg.tips = '_Tips_\n  * Use the right keywords\n  * Enter `joinsd` to ope
 config.msg.todo = '_Todo_\n  * ITSM ticket (update and comments)';
 config.msg.ko = 'Thanks to write `joinsd` to open a Space with the Service Desk team';
 
-config.msg.roomcreationerr = '* Error during room creation';
-config.msg.roomcreationok = '* Room created';
-config.msg.roomcreationongoing = 'Space creation ongoing';
-config.msg.roomcreationintro = 'You\'re in group space with bot and human assistance';
-config.msg.roomcreationissue = 'Cisco Spark room creation issue';
-config.msg.roomcreationissuecomment = 'ServiceDesk bot has an issue to create the Cisco Spark group space';
+config.SD.msgcreationerr = '* Error during room creation';
+config.SD.msgcreationok = '* Room created';
+config.SD.msgcreationongoing = 'Space creation ongoing';
+config.SD.msgcreationintro = 'You\'re in group space with bot and human assistance';
+config.SD.msgcreationissue = 'Cisco Spark room creation issue';
+config.SD.msgcreationissuecomment = 'ServiceDesk bot has an issue to create the Cisco Spark group space';
 
 config.msg.memberadded = '* Member added';
 config.msg.membererr = '* Error during membership'
