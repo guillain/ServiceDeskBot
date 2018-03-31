@@ -22,3 +22,5 @@
 * add directory based on NoSQL (cf. req. bigdata)
 * add reflex + learning session + env consideration (geo, weather, time, day...)
 
+## ITSM
+* update ticket during chat with SD

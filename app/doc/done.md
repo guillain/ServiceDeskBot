@@ -17,4 +17,4 @@
 * create ticket manual
 * create ticket automaticlally when joinsd is used
 * update ticket
-
+* list tickets
