@@ -1,7 +1,7 @@
 # ServiceDeskBot
 Cisco Spark Bot for ServiceDesk
 
-## What is it?
+# What is it?
 * Q&A chatbot integrated on redis db
 * DB can be loaded with csv file
 * User can be put in a new room with ServiceDesk (keyword: servicedesk)
@@ -15,6 +15,39 @@ Cisco Spark Bot for ServiceDesk
 
 ## Advanced Scenario
 ![](doc/workflow_adv.png)
+
+# Commands
+## joinsd
+To open a chat group space with the Service Desk
+Because we can't let the enduser without door
+
+## loadcsv
+Load current CSV file as source of data
+Useful to update quickly the KB source
+
+## testcsv
+Test current CSV file vs local DB
+Run the production safly!
+
+## listticket
+List ITSM tickets
+To follow the last event, update...
+
+## createticket
+Create your ticket by chat
+`createticket [title] [comments]`
+
+## updateticket
+Update the ticket
+`updateticket [id] [comments]
+
+## help
+Display the helpful messsage
+
+
+*All other words are used to be searched in the KB source(s)*
+*: any words, you can search in the source directly with the name and/or description
+
 
 # HowTo
 
