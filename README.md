@@ -153,9 +153,9 @@ config.js
 * https://github.com/NodeRedis/node_redis
 
 ## Done
-![](doc/done.md)
+doc/done.md
 
 ## ToDo
-![](doc/todo.md)
+doc/todo.md
 
 Have fun
