@@ -19,7 +19,7 @@ cd "${APP_DIR}"
 
 case $1 in
   start)
-    pm2 start "${APP}" \
+    pm2 start "${APP_DIR}/${APP}" \
     --log    "${LOG_DIR}/all.log" \
     --output "${LOG_DIR}/app.log" \
     --error  "${LOG_DIR}/err.log" \
