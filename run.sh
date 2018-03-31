@@ -8,7 +8,7 @@
 #
 
 APP='servicedeskbot.js'
-APP_DIR='/var/www/ServiceDeskBot'
+APP_DIR='/var/www/ServiceDeskBot/app'
 LOG_DIR="${APP_DIR}/log"
 
 # For the manual mode and the tunneling

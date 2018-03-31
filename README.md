@@ -25,6 +25,9 @@ git clone https://github.com/guillain/ServiceDeskBot.git
 ```bash
 cd ServiceDeskBot
 ```
+
+### PM2 environment
+
 * Install dependencies
 ```bash
 npm install
@@ -52,6 +55,44 @@ vi config.js
 loadcsv
 ```
 * Ask the bot
+
+### Docker environment
+Provided also for Docker env. with the Dockerfile for the standalone builder
+
+To build the image:
+`docker build -t bot/servicedesk .`
+
+To run the image:
+`docker run -d -p 8080:8080 bot/servicedesk`
+
+To go in the container:
+`docker exec -it bot/servcedesk /bin/bash`
+
+## BigData with Logstash connector embeded
+Settings is done to send all chat messages formatted properly to a log stash system.
+
+Thanks to active it in the configuration file
+```bash
+config.js
+> config.bigdata.enable = true;
+```
+
+## Current issue
+* flint Redis storage (issue: https://github.com/flint-bot/flint/issues/22). Thanks to use the old redis.js file.
+
+# CREDITS
+
+## Cisco Spark
+* http://developer.ciscospark.com/
+* https://github.com/flint-bot/flint
+* https://github.com/flint-bot/sparky
+
+## Google
+* https://cloud.google.com/translate
+* https://github.com/statickidz/node-google-translate-skidz
+
+## Redis
+* https://github.com/NodeRedis/node_redis
 
 ## Done
 [done.md](doc/done.md)
