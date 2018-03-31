@@ -59,7 +59,6 @@ config.msg.help += '  - `help`: this chat\n\n';
 config.msg.help += '  - `*`: any words, you can search in the source directly with the name and/or description';
 
 config.msg.intro = 'Welcome on the _ServiceDesk_ bot space';
-config.msg.introgrp = 'Welcome on the _ServiceDesk_ group space';
 config.msg.flash = '**Flash message** Demo version is ready!';
 config.msg.end = 'Thanks to have used the _ServiceDesk bot_';
 config.msg.notfound = 'Sorry we have not found result. Thanks to\n  * rephrase your demand\n  * `createticket` command to create a new ticket';

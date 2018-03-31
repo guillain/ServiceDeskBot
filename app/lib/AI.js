@@ -16,6 +16,12 @@ var search = Search.createSearch(config.SD.storage);
 
 var fs = require('fs');
 
+exports.help = function(bot, trigger) {
+  var help  = '## AI \n\n';
+  help += 'Search engine based on NoSQL and BigData database\n\n';
+  bot.say(help);
+}
+
 exports.search = function(bot, trigger) {
   var tosay = '_Search result_ \n';
 

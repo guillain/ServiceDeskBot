@@ -25,7 +25,8 @@ var flint = new Flint(config);
 var AI   = require('./lib/AI.js');
 var SD   = require('./lib/SD.js');
 var CSV  = require('./lib/CSV.js');
-var ITSM = require('./lib/ITSM.js');
+var incident = require('./lib/incident.js');
+var translate = require('./lib/translate.js');
 var logstash = require('./lib/logstash.js');
 
 // Use redis storage
@@ -47,17 +48,17 @@ flint.on('message', function(bot, trigger, id) {
 
 // Listen on all path
 flint.hears(/.*/, function(bot, trigger, id) {
-  var arg = trigger.args['0'];
-  if (/ServiceDeskBot/i.test(arg))       { arg = trigger.args['1']; }
+  // Remove bot name if in the first arg. position
+  if (trigger.args['0'] === config.name)            { trigger.args.splice(0,1); }
 
-  if      (/^help$/i.test(arg))          { bot.say(config.msg.help); }
-  else if (/^loadcsv$/i.test(arg))       { CSV.load(bot, trigger); }
-  else if (/^testcsv$/i.test(arg))       { CSV.test(bot, trigger); }
-  else if (/^listticket$/i.test(arg))    { ITSM.list(bot, trigger); }
-  else if (/^createticket/i.test(arg))   { ITSM.create(bot, trigger, trigger.args['1'], trigger.args); }
-  else if (/^updateticket/i.test(arg))   { ITSM.update(bot, trigger, id, trigger.args); }
-  else if (/^joinsd$/i.test(arg))        { SD.join(bot, trigger, id); }
-  else                                   { AI.search(bot, trigger, id); }
+  // Check if command is requested
+  if      (/^help$/i.test(trigger.args['0']))       { bot.say(config.msg.help); }
+  else if (/^csv$/i.test(trigger.args['0']))        { CSV.switcher(bot, trigger, id); }
+  else if (/^incident$/i.test(trigger.args['0']))   { incident.switcher(bot, trigger, id); }
+  else if (/^translate$/i.test(trigger.args['0']))  { translate.switcher(bot, trigger, id); }
+  else if (/^joinsd$/i.test(trigger.args['0']))     { SD.join(bot, trigger, id); }
+  // If not request the search engine to find the arg. in the knowledge source(s)
+  else                                              { AI.search(bot, trigger, id); }
 });
 
 // Define express path for incoming webhooks

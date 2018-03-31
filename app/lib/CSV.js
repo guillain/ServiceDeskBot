@@ -5,14 +5,29 @@
  */
 // Load config
 var config = require('../config');
-
 var redis = require("redis");
 var client = redis.createClient({detect_buffers: true});
-
 var Search = require('redis-search');
 var search = Search.createSearch(config.SD.storage);
-
 var fs = require('fs');
+
+// Help fct
+exports.help = function(bot, trigger) {
+  var help  = '## CSV\n\n';
+  help += 'Manage CSV file as source of knoweldge\n\n';
+  help += '### Command available\n\n';
+  help += '* `csv load`: load local CSV file as source in the local database\n\n';
+  help += '* `csv test`: check alignment between local CSV and local database\n\n';
+  help += '* `csv help`: this command\n\n';
+  bot.say(help);
+}
+
+// Internal segmentation of the request
+exports.switcher = function(bot, trigger, id) {
+  if      (/^load$/i.test(trigger.args['1']))    { module.exports.load(bot, trigger); }
+  else if (/^test$/i.test(trigger.args['1']))    { module.exports.test(bot, trigger); }
+  else                                           { module.exports.help(bot, trigger); }
+}
 
 // Load CSV file content in Redis
 exports.load = function(bot, trigger){

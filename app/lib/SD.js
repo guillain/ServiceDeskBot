@@ -9,37 +9,45 @@ var config = require('../config');
 var Spark = require('node-sparky');
 var spark = new Spark({ token: config.token  });
 
-var ITSM = require('./ITSM.js');
+var incident = require('./incident.js');
+
+// Help fct
+exports.help = function(bot, trigger) {
+  var help  = '## SeviceDesk \n\n';
+  help += '* Add the requestor and the one member of the ServiceDesk team in a chat group \n\n';
+  help += '* Create **new ITSM incident** to track the activity with the current content\n\n';
+  help += '### Command available\n\n';
+  help += '* `servicedesk join`: request the ServiceDesk team to join us for incident resolution\n\n';
+  help += '* `servicedesk help`: this page\n\n;'
+  bot.say(help);
+}
 
 // Open a Spark room with SD team
 exports.join = function(bot, trigger, id) {
-  var tosay  = config.msg.roomcreationintro + '\n\n';
+  var tosay  = config.msg.room.creationintro + '\n\n';
   tosay += config.msg.flash + '\n\n';
 
-  // Create ITSM ticket to log current request
-  ITSM.create(bot, trigger, config.msg.itsmtitle + '-' + id, id, function(itsm_data, itsm_id, itsm_number){
-    room_title = config.SD.roomtitle + ' ' + itsm_number;
+  // Create incident to log current request
+  incident.create(bot, trigger, config.msg.incident.title + '-' + id, id, function(itsm_data, itsm_id, itsm_number){
+    room_title = config.SD.roomtitle + '_' + itsm_number;
     tosay += '\n' + itsm_data;
 
     // Create Cisco Spark group chat space
     room = spark.roomAdd(room_title)
       .then(function(room) {
-        bot.say(config.msg.roomcreationok + ': ' + room_title);
+        bot.say(config.msg.room.creationok + '\n* ' + room_title);
 
         spark.membershipAdd(room.id, config.SD.email, '0')
-          .then(function(room) { bot.say(config.msg.memberadded+' - '+config.SD.email); })
-          .catch(function(err) { bot.say(config.msg.membererr); console.log(err); });
+          .catch(function(err) { bot.say(config.msg.room.membererr); console.log(err); });
         spark.membershipAdd(room.id, trigger.personEmail, '0')
-          .then(function(room) { bot.say(config.msg.memberadded+' - '+trigger.personEmail); })
-          .catch(function(err) { bot.say(config.msg.membererr); console.log(err); });
+          .catch(function(err) { bot.say(config.msg.room.membererr); console.log(err); });
 
         spark.messageSend({roomId: room.id, text: tosay, markdown: tosay})
-          .then(function(room) { bot.say(config.msg.sent); })
-          .catch(function(err) { bot.say(config.msg.senterr); console.log(err); });
+          .catch(function(err) { bot.say(config.msg.room.senterr); console.log(err); });
       })
-      .catch(function(err)     { bot.say(config.msg.roomcreationerr);  console.log(err);
-        // Update ITSM ticket to log current room creation issue
-        ITSM.update(bot, trigger, itsm_id, config.msg.roomcreationissue);
+      .catch(function(err)     { bot.say(config.msg.room.creationerr);  console.log(err);
+        // Update incident to log current room creation issue
+        incident.update(bot, trigger, itsm_id, config.msg.room.creationerr + ' ' + tosay);
       });
   });
 };

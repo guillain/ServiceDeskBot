@@ -1,24 +1,29 @@
 /**
- * @file Cisco Spark Main bot to procee myTranslator
+ * @file Google Translator features
  * @author guillain guillain@gmail.com
  * @license GPL-3.0
  */
 
-// Import module
-var translate = require('node-google-translate-skidz');
-
 // Load config
 var config = require('../config');
+var translate = require('node-google-translate-skidz');
 
 // Help fct
-// https://cloud.google.com/translate/docs/languages
-help = function() {
-  var help  = '**Translate** \n\n';
-  help += '_Description_ : Text translation online via chat bot \n\n';
-  help += '_Commands_ : [lang in] [lang out] [*/phrase] \n\n';
-  help += '* fr I like it! \n\n';
+exports.help = function(bot, trigger) {
+  var help  = '## Translate \n\n';
+  help += 'Text translation online via chat bot \n\n';
+  help += '### How to use the translation \n\n';
+  help += '#### Manualy \n\n`[lang in] [lang out] [*/phrase]` \n\n';
+  help += '* en fr I like it! \n\n';
   help += '* fr de j\'ai un rendez-vous demain \n\n';
-  help += '_lang_: *107*, in summary \n\n';
+  help += '#### Automaticaly \n\n`[*/phrase]` (the languages must be configured and activated before)\n\n';
+  help += '* I like it! \n\n';
+  help += '### Commands to configure auto translation\n\n';
+  help += '* `translate on`: active the auto translation \n\n';
+  help += '* `translate off`: deactive the auto translation \n\n';
+  help += '* `translate config [lang in] [lang out]`: configure the auto translation \n\n';
+  help += '* `translate state`: provide the current state \n\n';
+  help += '### lang \n\n*107*, in summary \n\n';
   help += '* en - English \n\n';
   help += '* es - Spanish\n\n';
   help += '* fr - French \n\n';
@@ -29,34 +34,52 @@ help = function() {
   help += '* ar - Arabic \n\n';
   help += '* zh-CN - Chinese (Simplified) \n\n';
   help += '* zh-TW - Chinese (Traditional) \n\n';
-  return(help);
-}
+  help += 'Full list: https://cloud.google.com/translate/docs/languages\n\n';
+  bot.say(help);
+};
 
-exports.translate = function(bot, trigger) {
-  var phrase = '';
+// Main
+exports.switcher = function(bot, trigger, id) {
+  // Get back data from local database
+  var data = bot.recall(config.userDB);
+  //console.log(JSON.stringify(data, null, 4));
+  if(!data)          { data = bot.store(config.userDB, {}); }
+  if(!data.state)    { data.state = false; }
+  if(!data.langin)   { data.langin = 'fr'; }
+  if(!data.langout)  { data.langout = 'en'; }
 
-  if (trigger.args['0'] === config.name) { trigger.args.splice(0,1); }  
-
-  if      (trigger.args.length == 1) {
-    if      (trigger.args['0'] == 'help') { bot.say('' + help()); }
-    else if (trigger.args['0'] == 'test') { bot.say('test ok'); }
-    else                                  { bot.say( 'Error in the syntax \n\n' + help()); }
+  // Internal segmentation of the request
+  if      (/^on$/i.test(trigger.args['1']))      { data.state = true; bot.say('Auto translation **ON**'); }
+  else if (/^off$/i.test(trigger.args['1']))     { data.state = false; bot.say('Auto translation **OFF**'); }
+  else if (/^state$/i.test(trigger.args['1']))   { bot.say('State: ' + data.state); }
+  else if (/^config$/i.test(trigger.args['1']))  { 
+    if      (trigger.args.length == 2)             { bot.say('Configuration\n* In: ' + data.langin + '\n* Out: ' + data.langout); }
+    else if (trigger.args.length == 4) {
+      // todo: check if 1 & 2 exist and in the dict
+      data.langin = trigger.args['2'];
+      data.langout = trigger.args['3'];
+      bot.say('Configuration saved _(' + data.langin + ',' + data.langout + ')_');
+    }
   }
-  else if (trigger.args.length < 3)       { bot.say( 'Error in the syntax \n\n' + help()); }
   else {
-    var langIn = trigger.args['0'];
-    var langOut = trigger.args['1'];
-    for (i = 2; i < trigger.args.length; i++) { phrase += ' '+trigger.args[i]; }
-    console.log('langIn:' + langIn + ', phraseIn:' + phrase);
-
+    // Auto or Manual?
+    if (!data.state){
+      if(trigger.args.length > 2){
+        // todo: check if 0 & 1 exist and in the dict
+        data.langin = trigger.args['1'];
+        data.langout = trigger.args['2'];
+        trigger.args.splice(0,3);
+      }
+      else { module.exports.help(bot, trigger); return; }
+    }
+    console.log('>>> IN >>> lang: '+data.langin+', phrase: '+ trigger.args.join(' '));
     translate({
-      text: phrase,
-      source: langIn,
-      target: langOut
+      text: trigger.args.join(' '),
+      source: data.langin,
+      target: data.langout
     }, function(result) {
-      console.log('langOut:' + langOut + ', phraseOut:' + result);
-      bot.say('' + result);
+      console.log('>>> OUT >>> lang: '+data.langout+', result: '+ result);
+      bot.say('_('+data.langin+' to '+data.langout+')_ ' + result);
     });
   }
-});
-
+};

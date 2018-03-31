@@ -20,6 +20,7 @@ Cisco Spark Bot for ServiceDesk
 ## joinsd
 To open a chat group space with the Service Desk
 Because we can't let the enduser without door
+Create automatically an ITSM ticket and the content is provided in the both chat space (1:1 and group).
 
 ## loadcsv
 Load current CSV file as source of data
