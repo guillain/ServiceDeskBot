@@ -153,9 +153,10 @@ config.js
 * https://github.com/NodeRedis/node_redis
 
 ## Done
-{{md './doc/done.md' }}
+[Done](doc/done.md)
 
 ## ToDo
-{{md './doc/todo.md' }}
+[ToDo](doc/todo.md)
+
 
 Have fun
