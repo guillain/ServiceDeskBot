@@ -39,14 +39,40 @@ Manage CSV file as source of KM
 
 * `csv help` The CSV's help page.
 
-## Incident
-Manage the ITSM incident
+## ITSM
+Manage the ITSM ticket:
+* incident
+* problem
+* task
 
-* `incident list` List ITSM tickets. To follow the last event, update...
+### Incident
 
-* `incident list create [title] [comments]` Create your ticket by chat. 
+* `task list` List ITSM tasks. To follow the last event, update...
 
-* `updateticket [id] [comments]` Update the ticket.
+* `task list create [title] [comments]` Create your task by chat. 
+
+* `task update [id] [comments]` Update the task.
+
+* `task help` The Task's help page.
+
+
+### Problem
+
+* `problem list` List ITSM problems. To follow the last event, update...
+
+* `problem list create [title] [comments]` Create your problem by chat.
+
+* `problem update [id] [comments]` Update the problem.
+
+* `problem help` The Problem's help page.
+
+### Incident
+
+* `incident list` List ITSM incidents. To follow the last event, update...
+
+* `incident list create [title] [comments]` Create your incident by chat.
+
+* `incident update [id] [comments]` Update the incident.
 
 * `incident help` The Incident's help page.
 
@@ -135,7 +161,7 @@ config.js
 ```
 
 ## Current issue
-* `incident create title comments` callback fct to fix
+* `ITSM` create title comments` callback fct to fix (manual creation of incident, problem and task impacted)
 * flint Redis storage (issue: https://github.com/flint-bot/flint/issues/22). Thanks to use the old redis.js file as workaround.
 
 # CREDITS

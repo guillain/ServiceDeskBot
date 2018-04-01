@@ -20,10 +20,10 @@
 * default flash message
 
 ### ITSM
-* create ticket manual: **bugged**
-* create ticket automaticlally when joinsd is used
-* update ticket
-* list tickets
+* create ticket (incident, problem or task) manual: **bugged**
+* create ticket (incident, problem or task) automaticlally when joinsd is used
+* update ticket (incident, problem or task)
+* list tickets (incident, problem or task)
 * parse feedback value and use it in Spark
 
 ### Translate

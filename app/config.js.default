@@ -1,15 +1,13 @@
 /**
- * @file Cisco Spark Main bot
+ * @file Configurtion file for the ServiceDeskBot
  * @author guillain <guillain@gmail.com>
  * @license LGPL-3.0
- * @features:
- * @@ servicedesk
  */
 
 var config = {};
 
 config.name = 'ServiceDeskBot';
-config.email = 'guillain@gmail.com';
+config.email = 'guillain.sanchez@dimensiondata.com';
 config.debug = '1';
 
 // Flint
@@ -23,9 +21,14 @@ config.messageFormat = 'markdown'; //text
 config.minTime = '10'; //600
 config.requeueMinTime = '5'; //(minTime*)10
 
-// BigData connector
+// Local DB
+config.db = {};
+config.db.host = '127.0.0.1';
+config.db.km = 'servicedeskbot_km';
+
+// BigData collector
 config.bigdata = {};
-config.bigdata.enable = true;
+config.bigdata.enable = false;
 config.bigdata.type = 'tcp';
 config.bigdata.port = '';
 config.bigdata.auth = '';
@@ -34,58 +37,78 @@ config.bigdata.host = '';
 // Service desk
 config.SD = {};
 config.SD.email = '';
-config.SD.storage = 'KM';
-config.SD.csv = '/var/www/ServiceDeskBot/conf/km.csv';
-config.SD.searchlimit = '10';
-config.SD.roomtitle = 'ServiceDesk Room \n';
+config.SD.roomtitle = 'ServiceDesk Room';
+config.SD.msg = {};
+config.SD.msg.creationok = 'Room created';
+config.SD.msg.creationerr = 'Error during room creation';
+config.SD.msg.creationintro = 'You\'re in group space with bot and human assistance\nRemember to prefix your command for the bot by the botname `@'+config.name+' command`';
+config.SD.msg.memberok = 'Member added';
+config.SD.msg.membererr = 'Error during membership'
+config.SD.msg.sent = 'Message sent';
+config.SD.msg.senterr = 'Error to send message';
+
+// Translate
+config.translate = {};
+config.translate.db = 'servicedeskbot_translate';
+config.translate.msg = {};
+config.translate.msg.on = 'Auto translation **ON**';
+config.translate.msg.off = 'Auto translation **OFF**';
+config.translate.msg.confok = 'Configuration saved';
+
+// CSV
+config.CSV = {};
+config.CSV.file = '/var/www/ServiceDeskBot/app/conf/km.csv';
 
 // ITSM
 config.ITSM = {};
 config.ITSM.url = '';
 config.ITSM.auth = '';
 config.ITSM.nbroldmsg = '5';
+config.ITSM.msg = {};
+config.ITSM.msg.title = 'SD-bot';
+config.ITSM.msg.creationok = '**Ticket** created successfuly';
+config.ITSM.msg.creationerr = 'Issue during the creation of the **incident**';
+config.ITSM.msg.updateok = '**Ticket** updated successfuly';
+config.ITSM.msg.description = 'ServiceDesk Automation';
+config.ITSM.msg.notfound = 'Not found';
+config.ITSM.msg.nbrtotalfound = 'Number total found'
+
+// Flash
+config.flash = {};
+config.flash.db = 'servicedeskbot_db';
+config.flash.msg = {};
+config.flash.msg.default = 'Demo version is ready!';
+config.flash.msg.intro = '**Flash message**';
+config.flash.msg.updateok = 'Flash message updated';
+
+// AI
+config.AI = {};
+config.AI.searchlimit = '10';
+config.AI.msg = {};
+config.AI.msg.found = 'Search result';
 
 // Bot message
 config.msg = {};
-config.msg.help  = '**Help**\n\n';
-config.msg.help += '  ServiceDesk bot is a tool to provide support with the help of KM, DB...\n\n';
-config.msg.help += '  Commands \n\n'; //`[ * | joinsd | createticket | loadcsv | testcsv | help ]`\n\n';
-config.msg.help += '  - `joinsd`: to open a chat group space with the Service Desk\n\n';
-config.msg.help += '  - `loadcsv`: load current CSV file as source of data\n\n';
-config.msg.help += '  - `testcsv`: test current CSV file vs local DB\n\n';
-config.msg.help += '  - `createticket`: create ITSM ticket\n\n';
-config.msg.help += '  - `updateticket`: update ITSM ticket\n\n';
-config.msg.help += '  - `help`: this chat\n\n';
-config.msg.help += '  - `*`: any words, you can search in the source directly with the name and/or description';
+config.msg.help  = '## Help\n\n';
+config.msg.help += 'ServiceDesk bot is a tool to provide support answering to the questions with the help of bigdata (and futurely AI)\n\n';
+config.msg.help += '### How to search \n\n';
+config.msg.help += '`*`: any words, you can search in the source directly with the name and/or description \n\n';
+config.msg.help += '### Available commands \n\n';
+config.msg.help += 'Use the _*command* help_ function to get more information\n\n';
+config.msg.help += '* `joinsd [help]`: To open a chat group space with the Service Desk\n\n';
+config.msg.help += '* `flash [update | help]`: Display or update flash message\n\n';
+config.msg.help += '* `task [list | create | update | help]`: Manage ITSM task\n\n';
+config.msg.help += '* `problem [list | create | update | help]`: Manage ITSM problem\n\n';
+config.msg.help += '* `incident [list | create | update | help]`: Manage ITSM incident\n\n';
+config.msg.help += '* `translate [on | off | config | state | help]`: Translate automatically or manually the input messages in another language\n\n';
+config.msg.help += '* `csv [load | test | help]`: Manage CSV source directory\n\n';
 
 config.msg.intro = 'Welcome on the _ServiceDesk_ bot space';
-config.msg.flash = '**Flash message** Demo version is ready!';
 config.msg.end = 'Thanks to have used the _ServiceDesk bot_';
-config.msg.notfound = 'Sorry we have not found result. Thanks to\n  * rephrase your demand\n  * `createticket` command to create a new ticket';
+config.msg.notfound = 'Sorry we have not found result. Thanks to\n  * rephrase your demand\n  * `incident create` command to create a new ticket';
 config.msg.tips = '_Tips_\n  * Use the right keywords\n  * Enter `joinsd` to open a new chat room with Service Desk';
 config.msg.todo = '_Todo_\n  * ITSM ticket (update and comments)';
 config.msg.ko = 'Thanks to write `joinsd` to open a Space with the Service Desk team';
-
-config.SD.msgcreationerr = '* Error during room creation';
-config.SD.msgcreationok = '* Room created';
-config.SD.msgcreationongoing = 'Space creation ongoing';
-config.SD.msgcreationintro = 'You\'re in group space with bot and human assistance';
-config.SD.msgcreationissue = 'Cisco Spark room creation issue';
-config.SD.msgcreationissuecomment = 'ServiceDesk bot has an issue to create the Cisco Spark group space';
-
-config.msg.memberadded = '* Member added';
-config.msg.membererr = '* Error during membership'
-
-config.msg.sent = '* Message sent';
-config.msg.senterr = '* Error to send message';
-
-config.msg.itsmcreationerr = '* ITSM ticket creation issue';
-config.msg.itsmcreationok = '* ITSM ticket created';
-config.msg.itsmupdateok = '* ITSM ticket updated';
-config.msg.itsmtitle = 'SD-bot';
-config.msg.itsmdescription = 'ServiceDesk Automation';
-config.msg.itsmcreatehelp = 'Syntaxe: `createticket title comments`';
-config.msg.itsmupdatehelp = 'Syntaxe: `updateticket ticket_id comments`';
 
 // export config
 module.exports = config;

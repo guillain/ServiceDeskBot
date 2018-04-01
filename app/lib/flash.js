@@ -20,24 +20,24 @@ exports.help = function() {
 // Internal segmentation of the request
 exports.switcher = function(bot, trigger, id) {
   // Get back the fash message from the local db if exist
-  var data = bot.recall(config.flash.db);
-  if(!data)      { data = bot.store(config.flash.db,{}); } 
-  if(!data.text) { data.text = config.flash.msg.default; }
+  var flash = bot.recall(config.flash.db);
+  if(!flash)      { flash = bot.store(config.flash.db,{}); } 
+  if(!flash.text) { flash.text = config.flash.msg.default; }
 
   if      (/^help$/i.test(trigger.args['1']))    { bot.say(module.exports.help()); }
   else if (/^update$/i.test(trigger.args['1']))  { 
     trigger.args.splice(0,2);
-    data.text = trigger.args.join(' ');
-    bot.say(config.flash.msg.updateok+' _('+data.text+')_');
+    flash.text = trigger.args.join(' ');
+    bot.say(config.flash.msg.updateok+' _('+flash.text+')_');
   }
-  else                                           { bot.say(config.flash.msg.intro +' '+data.text); }
+  else                                           { bot.say(config.flash.msg.intro +' '+flash.text); }
 }
 
 // Get, set or default
 exports.get = function(bot) {
-  var data = bot.recall(config.flash.db);
-  if(!data)      { data = bot.store(config.flash.db,{}); }
-  if(!data.text) { data.text = config.flash.msg.default; }
+  var flash = bot.recall(config.flash.db);
+  if(!flash)     { flash = bot.store(config.flash.db,{}); }
+  if(!flash.text) { flash.text = config.flash.msg.default; }
 
-  return data.text;
+  return flash.text;
 }

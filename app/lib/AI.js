@@ -5,6 +5,7 @@
  */
 // Load config
 var config = require('../config');
+var flash = require('./flash.js');
 
 var request = require("request");
 
@@ -24,34 +25,29 @@ exports.help = function() {
 }
 
 // Search master fct
-exports.search = function(bot, trigger) {
-  var tosay = '_Search result_ \n';
-
-  var phrase = '';
-  for (i = 0; i < trigger.args.length; i++) {
-    if(i == 0) { phrase  = trigger.args[i]; }
-    else       { phrase += ' '+trigger.args[i]; }
-  }
+exports.search = function(bot, trigger, id) {
+  var tosay = config.AI.msg.found + '\n';
+  console.log('>>> AI.search: trigger.args.join(): ' + trigger.args.join(' '));
 
   client.hgetall(config.db.km, function(err,kms){
     j = 0;
     if (err) throw err;
     for (var i in kms) { 
-      var re =  new RegExp('\\b'+ phrase + '\\b','i');
+      var re =  new RegExp('\\b'+ trigger.args.join(' ') + '\\b','i');
       if(re.exec(kms[i])) { 
-        if (j < config.SD.searchlimit) { tosay += '- '+kms[i]+'\n'; }
+        if (j < config.AI.searchlimit) { tosay += '- '+kms[i]+'\n'; }
         j++;
       }
     }
     if (j == 0) {
       tosay = config.msg.notfound;
     }
-    else if (j > config.SD.searchlimit) {
-      tosay += '\n'+j+' result found but '+config.SD.searchlimit+' displayed\n';
+    else if (j > config.AI.searchlimit) {
+      tosay += '\n'+j+' result found but '+config.AI.searchlimit+' displayed\n';
     }
 
     say  = config.msg.intro + '\n\n';
-    say += config.msg.flash + '\n\n';
+    say += config.flash.msg.intro + ' ' + flash.get(bot) + '\n\n';
     say += tosay + '\n\n';
     say += config.msg.tips + '\n\n';
     bot.say(say);
