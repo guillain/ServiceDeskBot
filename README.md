@@ -119,11 +119,17 @@ Display and update the flash message
 * Config your app with your [spark bot](https://developer.ciscospark.com/apps.html)
 `vi app/config.js`
 
+If you want to use the `run.sh` shell script, change the path of the install folder:
+`vi run.sh`
+`  APP_DIR='/home/ec2-user/ServiceDeskBot/app'`
+
+
 ## Running
 
 ### PM2 environment
 
 * Install dependencies
+`cd app`
 `npm install`
 
 * Run the application, two configuration availables
