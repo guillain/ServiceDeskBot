@@ -39,35 +39,35 @@ flint.start();
 
 // Debug echo
 flint.on('initialized', function() {
-  flint.debug('initialized %s rooms', flint.bots.length);
+    flint.debug('initialized %s rooms', flint.bots.length);
 });
 
 // Debug, BigData & ITSM incident auto update
 flint.on('message', function(bot, trigger, id) {
-  flint.debug('"%s":"%s":"%s"', trigger.roomTitle,trigger.personEmail,trigger.text);
-  logstash.send(bot, trigger); // send all messages to logstash (if enable and conf)
-  ITSM.auto_update(bot, trigger, 'incident');
+    flint.debug('"%s":"%s":"%s"', trigger.roomTitle,trigger.personEmail,trigger.text);
+    logstash.send(bot, trigger); // send all messages to logstash (if enable and conf)
+    ITSM.auto_update(bot, trigger, 'incident');
 });
 
 // Listen on all path
 flint.hears(/.*/, function(bot, trigger, id) {
-  // Remove bot name if in the first arg. position
-  if (trigger.args['0'] === config.name)            { trigger.args.splice(0,1); }
+    // Remove bot name if in the first arg. position
+    if (trigger.args['0'] === config.name)            { trigger.args.splice(0,1); }
 
-  // Check if command is requested
-  if      (/^help$/i.test(trigger.args['0']))       { bot.say(config.msg.help); }
-  else if (/^csv$/i.test(trigger.args['0']))        { CSV.switcher(bot, trigger, id); }
-  else if (/^flash$/i.test(trigger.args['0']))      { flash.switcher(bot, trigger, id); }
-  else if (/^joinsd$/i.test(trigger.args['0']))     { SD.join(bot, trigger, id); }
-  else if (/^incident$/i.test(trigger.args['0']))   { ITSM.switcher(bot, trigger, id, 'incident'); }
-  else if (/^problem$/i.test(trigger.args['0']))    { ITSM.switcher(bot, trigger, id, 'problem'); }
-  else if (/^task$/i.test(trigger.args['0']))       { ITSM.switcher(bot, trigger, id, 'task'); }
+    // Check if command is requested
+    if      (/^help$/i.test(trigger.args['0']))       { bot.say(config.msg.help); }
+    else if (/^csv$/i.test(trigger.args['0']))        { CSV.switcher(bot, trigger, id); }
+    else if (/^flash$/i.test(trigger.args['0']))      { flash.switcher(bot, trigger, id); }
+    else if (/^joinsd$/i.test(trigger.args['0']))     { SD.join(bot, trigger, id); }
+    else if (/^incident$/i.test(trigger.args['0']))   { ITSM.switcher(bot, trigger, id, 'incident'); }
+    else if (/^problem$/i.test(trigger.args['0']))    { ITSM.switcher(bot, trigger, id, 'problem'); }
+    else if (/^task$/i.test(trigger.args['0']))       { ITSM.switcher(bot, trigger, id, 'task'); }
 
-  //else if (/^incident$/i.test(trigger.args['0']))   { incident.switcher(bot, trigger, id); }
-  else if (/^translate$/i.test(trigger.args['0']))  { translate.switcher(bot, trigger, id); }
+    //else if (/^incident$/i.test(trigger.args['0']))   { incident.switcher(bot, trigger, id); }
+    else if (/^translate$/i.test(trigger.args['0']))  { translate.switcher(bot, trigger, id); }
 
-  // If not request the search engine to find the arg. in the knowledge source(s)
-  else                                              { AI.search(bot, trigger, id); }
+    // If not request the search engine to find the arg. in the knowledge source(s)
+    else                                              { AI.search(bot, trigger, id); }
 });
 
 // Define express path for incoming webhooks
@@ -75,15 +75,15 @@ app.post('/flint', webhook(flint) );
 
 // Start expess server
 var server = app.listen(config.port, function () {
-  flint.debug('Flint listening on port %s', config.port);
+    flint.debug('Flint listening on port %s', config.port);
 });
 
 // Gracefully shutdown (ctrl-c)
 process.on('SIGINT', function() {
-  flint.debug('stoppping...');
-  server.close();
-  flint.stop().then(function() {
-    process.exit();
-  });
+    flint.debug('stoppping...');
+    server.close();
+    flint.stop().then(function() {
+        process.exit();
+    });
 });
 

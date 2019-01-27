@@ -1,7 +1,7 @@
 # Configuration file
-config.js
+config.json
 
-km.csv
+km.conf
 
 # Logs
 logs

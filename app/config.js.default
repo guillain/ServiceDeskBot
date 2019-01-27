@@ -27,12 +27,12 @@ config.db.host = '127.0.0.1';
 config.db.km = 'servicedeskbot_km';
 
 // BigData collector
-config.bigdata = {};
-config.bigdata.enable = false;
-config.bigdata.type = 'tcp';
-config.bigdata.port = '';
-config.bigdata.auth = '';
-config.bigdata.host = '';
+config.conf = {};
+config.conf.enable = false;
+config.conf.type = 'tcp';
+config.conf.port = '';
+config.conf.auth = '';
+config.conf.host = '';
 
 // Service desk
 config.SD = {};
@@ -48,16 +48,16 @@ config.SD.msg.sent = 'Message sent';
 config.SD.msg.senterr = 'Error to send message';
 
 // Translate
-config.translate = {};
-config.translate.db = 'servicedeskbot_translate';
-config.translate.msg = {};
-config.translate.msg.on = 'Auto translation **ON**';
-config.translate.msg.off = 'Auto translation **OFF**';
-config.translate.msg.confok = 'Configuration saved';
+config.run = {};
+config.run.db = 'servicedeskbot_translate';
+config.run.msg = {};
+config.run.msg.on = 'Auto translation **ON**';
+config.run.msg.off = 'Auto translation **OFF**';
+config.run.msg.confok = 'Configuration saved';
 
 // CSV
 config.CSV = {};
-config.CSV.file = '/var/www/ServiceDeskBot/app/conf/km.csv';
+config.CSV.file = '/var/www/ServiceDeskBot/app/conf/km.conf';
 
 // ITSM
 config.ITSM = {};
@@ -90,7 +90,7 @@ config.AI.msg.found = 'Search result';
 // Bot message
 config.msg = {};
 config.msg.help  = '## Help\n\n';
-config.msg.help += 'ServiceDesk bot is a tool to provide support answering to the questions with the help of bigdata (and futurely AI)\n\n';
+config.msg.help += 'ServiceDesk bot is a tool to provide support answering to the questions with the help of conf (and futurely AI)\n\n';
 config.msg.help += '### How to search \n\n';
 config.msg.help += '`*`: any words, you can search in the source directly with the name and/or description \n\n';
 config.msg.help += '### Available commands \n\n';
@@ -100,8 +100,8 @@ config.msg.help += '* `flash [update | help]`: Display or update flash message\n
 config.msg.help += '* `task [list | create | update | help]`: Manage ITSM task\n\n';
 config.msg.help += '* `problem [list | create | update | help]`: Manage ITSM problem\n\n';
 config.msg.help += '* `incident [list | create | update | help]`: Manage ITSM incident\n\n';
-config.msg.help += '* `translate [on | off | config | state | help]`: Translate automatically or manually the input messages in another language\n\n';
-config.msg.help += '* `csv [load | test | help]`: Manage CSV source directory\n\n';
+config.msg.help += '* `run [on | off | config | state | help]`: Translate automatically or manually the input messages in another language\n\n';
+config.msg.help += '* `conf [load | test | help]`: Manage CSV source directory\n\n';
 
 config.msg.intro = 'Welcome on the _ServiceDesk_ bot space';
 config.msg.end = 'Thanks to have used the _ServiceDesk bot_';
